@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 class Contact(models.Model):
     name = models.CharField('Name', max_length=50)
@@ -10,3 +11,10 @@ class Contact(models.Model):
     jabber = models.EmailField('Jabber ID')
     skype = models.CharField('Skype ID', max_length=50, null=1, blank=1)
     othercontacts = models.TextField('Other contacts', null=1, blank=1)
+
+    def __unicode__(self):
+        return '<Contact: %s %s>' % (self.name, self.lastname)
+
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
