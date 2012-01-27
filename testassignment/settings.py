@@ -3,6 +3,8 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+ENABLE_HTTP_REQUEST_LOGGING = True
+
 ADMINS = (
      ('pak', 'your_email@example.com'),
 )
@@ -98,6 +100,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'middleware.HttpRequestDbLoggingMiddleware',
 )
 
 ROOT_URLCONF = 'testassignment.urls'
@@ -120,6 +123,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     't1_contact',
+    't3_httplog',
 )
 
 # A sample logging configuration. The only tangible logging
