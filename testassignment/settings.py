@@ -1,4 +1,5 @@
 # Django settings for testassignment project.
+import sys, os.path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -11,16 +12,26 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+
+DBPATH = '/home/pak/work/42cc/testassignment/db.sqlite3'
+
+if DEBUG and sys.platform == 'win32':
+    DBPATH = 'z:/pak/work/42cc/testassignment/db.sqlite3'
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/pak/work/42cc/testassignment/db.sqlite3', # Or path to database file if using sqlite3.
+        'NAME': DBPATH, # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -111,6 +122,11 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+if DEBUG:
+    TEMPLATE_DIRS += (
+        os.path.join(os.path.abspath(os.path.dirname(__file__)), 'templates'),
+    )
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -122,6 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'devserver',
     't1_contact',
     't3_httplog',
 )
