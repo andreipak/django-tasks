@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}42 Coffee Cups Test Assignment: HTTP Requests{% endblock %}
+
+{% block content_title %}<h2>HTTP Requests</h2>{% endblock %}
+
+{% block content %}
+<table cellspacing="0" cellpadding="5" border="1">
+   <tr>
+     <td>Date</td>
+     <td>Method</td>
+     <td>Path</td>
+     <td>QUERY_STRING</td>
+   </tr>
+{% for e in entries %}
+   <tr>
+     <td>{{ e.date }}</td>
+     <td>{{ e.request_method }}</td>
+     <td>{{ e.path }}</td>
+     <td>{{ e.query_string }}</td>
+   </tr>
+{% endfor %}
+</table>
+{% endblock %}

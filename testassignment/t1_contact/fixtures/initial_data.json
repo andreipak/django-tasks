@@ -1,17 +1,17 @@
 [ 
 
  {
-  "pk": 1, 
-  "model": "t1_contact.contact", 
+  "pk": 1,
+  "model": "t1_contact.contact",
   "fields": {
-   "bio": "Application Developer, System Administrator, and Researcher in a wide variety of applications and tools", 
-   "name": "Andrei", 
-   "contacts": "Kharkov, Lugovaya str 30A/2", 
-   "lastname": "Pak", 
-   "dateofbirth": "1981-03-13", 
-   "othercontacts": "", 
-   "skype": "pak.andrei", 
-   "jabber": "pak.andrei@gmail.com", 
+   "bio": "Application Developer, System Administrator \r\nand Researcher in a wide variety of \r\napplications and tools",
+   "name": "Andrei",
+   "contacts": "Kharkov, Lugovaya str 30A/2",
+   "lastname": "Pak",
+   "dateofbirth": "1981-03-13",
+   "othercontacts": "http://google.com/profiles/pak.andrei - Google Profile\r\nhttp://pakan.ru - Personal Page",
+   "skype": "pak.andrei",
+   "jabber": "pak.andrei@gmail.com",
    "email": "pak.andrei@gmail.com"
   }
  }

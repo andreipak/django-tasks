@@ -12,7 +12,7 @@ run:
 	$(MANAGE) runserver
 
 #using werkzeug thru django-devserver
-werkzeug:
+devserver:
 	$(MANAGE) runserver --werkzeug
 
 syncdb:
