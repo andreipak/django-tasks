@@ -1,16 +1,20 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from django.contrib.auth.models import User
+from models import HttpRequestLogEntry
+
+from django.test.client import Client
+from testassignment import views
+from django.core.urlresolvers import reverse
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class MiddlewareTest(TestCase):
+    def test_httprequest_logging(self):
+
+        client = Client()
+        url = reverse(views.home)
+        response = client.get(url)
+
+        hrle = HttpRequestLogEntry.objects.get(path='/')
+
+        self.assertNotEquals(hrle, None)
+        self.assertEquals(hrle.request_method, 'GET')
