@@ -11,7 +11,7 @@ class MiddlewareTest(TestCase):
     def test_httprequest_logging(self):
 
         client = Client()
-        url = reverse(views.home)
+        url = reverse(views.index)
         response = client.get(url)
 
         hrle = HttpRequestLogEntry.objects.get(path='/')

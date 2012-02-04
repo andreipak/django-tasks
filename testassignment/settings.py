@@ -75,6 +75,11 @@ STATIC_ROOT = ''
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
+#TEMPLATE_CONTEXT_PROCESSORS = (
+# 'testassignment.context_processors.projectsettings',
+#)
+
+
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
@@ -141,6 +146,7 @@ INSTALLED_APPS = (
     'devserver',
     't1_contact',
     't3_httplog',
+    't4_settings_ctxp',
 )
 
 # A sample logging configuration. The only tangible logging

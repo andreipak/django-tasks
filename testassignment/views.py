@@ -1,7 +1,22 @@
 from django.template import loader, Context
 from django.http import HttpResponse
-from t1_contact.models import Contact, ContactForm
+from t1_contact.models import Contact
 from t3_httplog.models import HttpRequestLogEntry
+from django.shortcuts import get_object_or_404, render_to_response
+from django.template import RequestContext
+from context_processors import projectsettings
+
+
+def index(request, template='index.html'):
+    contact = get_object_or_404(Contact)
+
+    return render_to_response(
+                    template,
+                    context_instance=RequestContext(
+                        request,
+                        {'contact':contact},
+                        processors=[projectsettings]
+                    ))
 
 
 def home(request):

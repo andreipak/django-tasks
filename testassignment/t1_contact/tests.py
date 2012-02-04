@@ -60,5 +60,5 @@ class ModelTest(TestCase):
 class HomeViewTest(TestCase):
     def test_home(self):
         client = Client()
-        response = client.get(reverse(views.home))
+        response = client.get(reverse(views.index))
         self.failUnlessEqual(response.status_code, 200)

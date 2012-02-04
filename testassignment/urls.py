@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'testassignment.views.home', name='home'),
+    url(r'^$', 'testassignment.views.index', name='index'),
     url(r'^requests/$', 'testassignment.views.requests', name='requests'),
     # url(r'^testassignment/', include('testassignment.foo.urls')),
 
