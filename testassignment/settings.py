@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 ENABLE_HTTP_REQUEST_LOGGING = True
 
 ADMINS = (
-     ('pak', 'your_email@example.com'),
+     ('pak', 'pk@pakan.ru'),
 )
 
 MANAGERS = ADMINS
