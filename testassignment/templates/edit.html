@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}42 Coffee Cups Test Assignment: Edit{% endblock %}
+
+{% block content_title %}<h2>42 Coffee Cups Test Assignment</h2>{% endblock %}
+
+{% block content %}
+
+<form id="contactForm" name="contactForm" method="post" action="">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" name="submit" value="Save" alt="Save changes" />
+<a href="cancel">Cancel</a>
+</form>
+
+<hr/>
+
+<a href="/requests/">requests</a>
+
+{% endblock %}

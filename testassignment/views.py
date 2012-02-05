@@ -5,6 +5,8 @@ from t3_httplog.models import HttpRequestLogEntry
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from context_processors import projectsettings, projectsettings_dict
+from django.contrib.auth.decorators import login_required
+from t5_editform.forms import ContactForm
 
 
 def index(request, template='index.html'):
@@ -17,6 +19,18 @@ def index(request, template='index.html'):
                         {'contact':contact},
                         processors=[projectsettings]
                     ))
+
+def edit(request, template_name='edit.html'):
+    contact = get_object_or_404(Contact)
+
+    form = ContactForm(initial=contact.__dict__)
+    return render_to_response(
+                    template_name,
+                    context_instance=RequestContext(
+                        request,
+                        {'form':form, 'contact':contact}
+                    ))
+
 
 
 def settings(request, template='settings.html'):

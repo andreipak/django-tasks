@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     't1_contact',
     't3_httplog',
     't4_settings_ctxp',
+    't5_editform',
 )
 
 # A sample logging configuration. The only tangible logging
