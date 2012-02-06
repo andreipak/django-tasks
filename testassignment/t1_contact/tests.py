@@ -41,7 +41,8 @@ class ModelTest(TestCase):
             "othercontacts": "http://google.com/profiles/pak.andrei - Google Profile\r\nhttp://pakan.ru - Personal Page",
             "skype": "pak.andrei",
             "jabber": "pak.andrei@gmail.com",
-            "email": "pak.andrei@gmail.com"
+            "email": "pak.andrei@gmail.com",
+            "photo": None
         }
 
         self.contact = Contact.objects.create(**self._contact)
@@ -53,7 +54,7 @@ class ModelTest(TestCase):
     def test_label(self):
         self.assertEquals(
             unicode(self.contact), \
-            u'<Contact: %s %s>' % (self._contact['name'], self._contact['lastname'])
+            u'%s %s' % (self._contact['name'], self._contact['lastname'])
         )
 
 

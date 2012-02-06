@@ -1,28 +1,52 @@
 {% extends "base.html" %}
-{% block title %}42 Coffee Cups Test Assignment{% endblock %}
 
-{% block content_title %}<h2>42 Coffee Cups Test Assignment</h2>{% endblock %}
+{% block body_id %}index-page{% endblock %}
+
+{% block content_title %}
+<h2>42 Coffee Cups Test Assignment</h2>
+<div id="nav">
+{% if user.is_authenticated %}
+  <a href="{% url testassignment.views.edit %}">Edit</a>|
+  <a href="{% url testassignment.views.logout %}">Logout</a>
+
+{% else %}
+  <a href="{% url django.contrib.auth.views.login %}">Login</a>
+{% endif %}
+</div>
+{% endblock %}
 
 {% block content %}
 <div id="left">
-<p><span>Name:</span> {{ contact.name }}</p>
-<p><span>Last name:</span> {{ contact.lastname }}</p>
-<p><span>Date of birth:</span> {{ contact.dateofbirth }}</p>
-<p><span>Bio:</span> {{ contact.bio|escape|linebreaks }}</p>
+<div class="field"><span>Name:</span> {{ contact.name }}</div>
+<div class="field"><span>Last name:</span> {{ contact.lastname }}</div>
+<div class="field"><span>Date of birth:</span> {{ contact.dateofbirth }}</div>
+<div class="field"><span>Photo:</span></div>
+
+{% if contact.photo %}
+<div id="photo-preview" style="background:url('{{ contact.photo.url }}')">
+   <div id="photo-stub">Photo preview</div>
+{% else %}
+<div id="photo-preview">
+   <div id="photo-stub">No photo</div>
+{% endif %}
+
+</div>
+
 </div>
 
 <div id="right">
-<p><span>Contacts:</span> {{ contact.contacts }}</p>
-<p><span>Email:</span> {{ contact.email }}</p>
-<p><span>Jabber:</span> {{ contact.jabber }}</p>
-<p><span>Skype:</span> {{ contact.skype }}</p>
-<p><span>Other contacts:</span> {{ contact.othercontacts|escape|linebreaks }}</p>
+<div class="field"><span>Contacts:</span> {{ contact.contacts }}</div>
+<div class="field"><span>Email:</span> {{ contact.email }}</div>
+<div class="field"><span>Jabber:</span> {{ contact.jabber }}</div>
+<div class="field"><span>Skype:</span> {{ contact.skype }}</div>
+
+<div id="textarea-wrapper">
+<div class="field"><span>Other contacts:</span> <div class="textarea">{{ contact.othercontacts|escape|linebreaks }}</div></div>
+<div class="field"><span>Bio:</span> <div class="textarea">{{ contact.bio|escape|linebreaks }}</div></div>
+</div>
+
 </div>
 
 <div class="clear"></div>
-
-<hr/>
-
-<a href="/requests/">requests</a>
 
 {% endblock %}

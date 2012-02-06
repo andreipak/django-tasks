@@ -5,17 +5,70 @@ body {
 
 div#left {
   float:left;
-  margin-right: 1em;
+  margin-right: 3em;
+  text-align: right;
+  margin-bottom: 3em;
+  width:360px
 }
 
 div#right {
   float:left;
+  text-align: right;
 }
 
 .clear {
   clear:both;
 }
 
-span.label, div.content p span {
+span.label, div.content div.field span {
   font-weight:bold;
+}
+
+div.field {
+  margin: 0.7em;
+}
+
+
+#photo-preview {
+  border: 1px solid #666;
+  height: 450px;
+  text-align: left;
+
+
+}
+
+#photo-stub {
+  margin:5px;
+}
+
+
+#textarea-wrapper {
+  text-align: left;
+
+}
+
+.content_title h2, .content_title #nav{
+  display:inline;
+}
+
+.content_title #nav {
+  margin-left: 20em;
+}
+
+
+ul.errorlist {
+  margin:0;
+  padding:0;
+
+  display:inline;
+  font-size: 0.77em;
+}
+
+#form-errors, .errorlist {
+  color: #DD4B39;
+  font-weight:bold;
+}
+
+body#index-page div#left, body#index-page div#right{
+  text-align: left;
 }

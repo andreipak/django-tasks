@@ -10,3 +10,4 @@ class ContactForm(forms.Form):
     jabber = forms.EmailField(label='Jabber ID')
     skype = forms.CharField(label='Skype ID', max_length=50)
     othercontacts = forms.CharField(label='Other contacts',widget=forms.Textarea, max_length=10000)
+    photo = forms.ImageField(required=False)
