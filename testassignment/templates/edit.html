@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block title %}42 Coffee Cups Test Assignment: Edit{% endblock %}
+
+{% block content_title %}<h2>42 Coffee Cups Test Assignment</h2>{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+<div id="form-errors">Fix errors below, please.</div>
+{% endif %}
+
+<form enctype="multipart/form-data" method="post">{% csrf_token %}
+
+<div id="left">
+{{ form.name.errors }}
+<div class="field"><span>Name:</span> {{ form.name }}</div>
+{{ form.lastname.errors }}
+<div class="field"><span>Last name:</span> {{ form.lastname }}</div>
+{{ form.dateofbirth.errors }}
+<div class="field"><span>Date of birth:</span> {{ form.dateofbirth }}</div>
+{{ form.photo.errors }}
+<div class="field"><span>Photo:</span> {{ form.photo }}</div>
+
+{% if contact.photo %}
+<div id="photo-preview" style="background:url('{{ contact.photo.url }}')">
+   <div id="photo-stub">Photo preview</div>
+{% else %}
+<div id="photo-preview">
+   <div id="photo-stub">No photo</div>
+{% endif %}
+
+</div>
+
+</div>
+
+<div id="right">
+{{ form.contacts.errors }}
+<div class="field"><span>Contacts:</span> {{ form.contacts }}</div>
+{{ form.email.errors }}
+<div class="field"><span>Email:</span> {{ form.email }}</div>
+{{ form.jabber.errors }}
+<div class="field"><span>Jabber:</span> {{ form.jabber }}</div>
+{{ form.skype.errors }}
+<div class="field"><span>Skype:</span> {{ form.skype }}</div>
+
+<div id="textarea-wrapper">
+{{ form.othercontacts.errors }}
+<div class="field"><span>Other contacts:</span> <div class="textarea">{{ form.othercontacts }}</div></div>
+{{ form.bio.errors }}
+<div class="field"><span>Bio:</span> <div class="textarea">{{ form.bio }}</div></div>
+</div>
+
+</div>
+
+<div class="clear"></div>
+
+<input type="submit" name="submit" value="Save" alt="Save changes" /> &nbsp; <a href="/" onclick="return confirm('Do you really want to cancel?')">Cancel</a>
+</form>
+
+{% endblock %}

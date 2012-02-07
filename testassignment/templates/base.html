@@ -3,6 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="/static/css/base.css" />
+  {% block extrahead %}{% endblock %}
   <title>{% block title %}{% endblock %}</title>
 </head>
 <body id="{% block body_id %}{% endblock %}">
@@ -15,6 +16,10 @@
         {% block content %}{% endblock %}
       </div>
     {% endblock %}
+    <div id="footer">
+      <hr /> <a href="/requests/">requests</a>
+      {% block extrafooter %}{% endblock %}
+    </div>
   </div>
 </body>
 </html>

@@ -3,3 +3,4 @@ venv/
 *.pyc
 *.sqlite3
 *~
+testassignment/static/photo/*
