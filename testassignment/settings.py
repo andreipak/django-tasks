@@ -137,10 +137,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'devserver',
-    't1_contact',
-    't3_httplog',
-    't4_settings_ctxp',
-    't5_editform',
+    'testassignment.t1_contact',
+    'testassignment.t3_httplog',
+    'testassignment.t4_settings_ctxp',
+    'testassignment.t5_editform',
 )
 
 # A sample logging configuration. The only tangible logging
