@@ -13,17 +13,12 @@ ADMINS = (
 MANAGERS = ADMINS
 
 
-DBPATH = '/home/pak/work/42cc/testassignment/db.sqlite3'
-
-if DEBUG and sys.platform == 'win32':
-    DBPATH = 'z:/pak/work/42cc/testassignment/db.sqlite3'
-
-
+PROJECT_ROOT = os.environ.get('PROJECT_ROOT') or os.path.abspath(os.path.dirname(__file__))
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': DBPATH, # Or path to database file if using sqlite3.
+        'NAME': '%s/db.sqlite3' % PROJECT_ROOT, # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -67,7 +62,7 @@ MEDIA_URL = '/static/'
 
 
 if DEBUG:
-    MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static/')
+    MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'static/')
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -126,15 +121,9 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'testassignment.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT, 'templates'),
 )
 
-if DEBUG:
-    TEMPLATE_DIRS += (
-        os.path.join(os.path.abspath(os.path.dirname(__file__)), 'templates'),
-    )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
