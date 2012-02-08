@@ -1,5 +1,5 @@
 from django.conf import settings
-from t3_httplog.models import HttpRequestLogEntry
+from testassignment.t3_httplog.models import HttpRequestLogEntry
 from datetime import datetime
 
 
