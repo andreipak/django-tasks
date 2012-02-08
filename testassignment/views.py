@@ -1,12 +1,12 @@
 from django.template import loader, Context
 from django.http import HttpResponse
-from t1_contact.models import Contact
-from t3_httplog.models import HttpRequestLogEntry
+from testassignment.t1_contact.models import Contact
+from testassignment.t3_httplog.models import HttpRequestLogEntry
 from django.shortcuts import get_object_or_404, render_to_response,  redirect
 from django.template import RequestContext
 from context_processors import projectsettings, projectsettings_dict
 from django.contrib.auth.decorators import login_required
-from t5_editform.forms import ContactForm
+from testassignment.t5_editform.forms import ContactForm
 from django.contrib.auth import logout as _logout
 from django.forms.models import model_to_dict
 
