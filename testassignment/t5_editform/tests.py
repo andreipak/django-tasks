@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from datetime import date
 from time import strptime
 
-from t1_contact.models import Contact
+from testassignment.t1_contact.models import Contact
 
 
 class EditFormTest(TestCase):

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from t1_contact.models import Contact
+from models import Contact
 
 from django.test.client import Client
 from testassignment import views
