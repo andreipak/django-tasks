@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Textarea
-from t1_contact.models import Contact
+from testassignment.t1_contact.models import Contact
 
 from uni_form.helper import FormHelper
 from uni_form.layout import Layout, Div, HTML, Submit
