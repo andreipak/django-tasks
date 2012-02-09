@@ -1,0 +1,64 @@
+.uniForm .ctrlHolder {
+    border-bottom: none;
+    padding: 0;
+}
+
+
+body#edit-page div#left, body#edit-page div#right{
+  text-align: right;
+  width:400px;
+}
+
+.uniForm .textInput, .uniForm .fileUpload, .uniForm .selectInput, .uniForm select, .uniForm textarea, .uniForm .dateinput {
+    float: right;
+    margin: 0.3em;
+    width: 53%;
+    padding: 0.1em;
+}
+
+
+.ctrlHolder label {
+  display:inline;
+}
+
+.uniForm .dateinput {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #AAAAAA;
+
+}
+
+#div_id_bio, #div_id_othercontacts {
+  text-align:left;
+
+}
+
+#div_id_bio label, #div_id_othercontacts label {
+  display:block;
+  margin-left:3em;
+}
+
+textarea#id_othercontacts,  textarea#id_bio {
+  width:300px;
+}
+
+.uniForm label {
+  font-weight:bold;
+}
+
+/*
+.uniForm label:after {
+  font-weight:bold;
+  content:":";
+}
+*/
+
+div.ctrlHolder {
+  position:relative;
+}
+span.asteriskField {
+  position:absolute;
+  display:block;
+  right: -0.3em;
+  top:0.3em;
+  color: red;
+}

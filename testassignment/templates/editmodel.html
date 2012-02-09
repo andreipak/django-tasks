@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load uni_form_tags %}
+{% block body_id %}edit-page{% endblock %}
+
+{% block extrahead %}
+<script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" type="text/css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}uni_form/default.uni-form.css" type="text/css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/edit.css" />
+
+<script src="{{ STATIC_URL }}uni_form/uni-form.jquery.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block title %}42 Coffee Cups Test Assignment: Edit{% endblock %}
+
+{% block content_title %}<h2>42 Coffee Cups Test Assignment</h2>{% endblock %}
+
+{% block content %}
+
+{% uni_form form form.helper %}
+
+<div class="clear"></div>
+
+{% endblock %}

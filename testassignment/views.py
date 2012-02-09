@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from testassignment.t5_editform.forms import ContactForm
 from django.contrib.auth import logout as _logout
 from django.forms.models import model_to_dict
+from t6_widgetsjquery.forms import ContactUniForm as ContactModelForm
 
 
 def index(request, template='index.html'):
@@ -69,6 +70,46 @@ def edit(request, template_name='edit.html'):
                         request,
                         {'form':form, 'contact':contact}
                     ))
+
+
+@login_required
+def editmodel(request, template_name='editmodel.html'):
+
+    contact = get_object_or_404(Contact)
+
+    if request.method == 'POST':
+        form = ContactModelForm(request.POST, request.FILES)
+        if form.is_valid():
+
+            #it is not handled by default, do it manually
+            if form.cleaned_data.get('photo'):
+                contact.photo = form.cleaned_data['photo']
+            elif request.POST.get('photo-clear') == 'on': #clear checkbox
+                contact.photo = None
+
+            contact.save()
+            return redirect('/')
+
+        else:
+            return render_to_response(
+                    template_name,
+                    context_instance=RequestContext(
+                        request,
+                        {'form':form, 'contact':contact}
+                    ))
+
+
+
+
+    form = ContactModelForm(instance=contact)
+
+    return render_to_response(
+                    template_name,
+                    context_instance=RequestContext(
+                        request,
+                        {'form':form, 'contact':contact}
+                    ))
+
 
 
 
