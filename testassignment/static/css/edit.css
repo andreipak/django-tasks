@@ -9,11 +9,17 @@ body#edit-page div#left, body#edit-page div#right{
   width:400px;
 }
 
-.uniForm .textInput, .uniForm .fileUpload, .uniForm .selectInput, .uniForm select, .uniForm textarea, .uniForm .dateinput {
+.uniForm .textInput, .uniForm .fileUpload, .uniForm .selectInput, .uniForm select, .uniForm textarea,
+.uniForm .jqueryuidatepickerwidget {
     float: right;
     margin: 0 0.2em 0.2em 0.2em;
     width: 53%;
     padding: 0.1em;
+}
+
+.uniForm .jqueryuidatepickerwidget {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #AAAAAA;
 }
 
 
@@ -21,11 +27,6 @@ body#edit-page div#left, body#edit-page div#right{
   display:inline;
 }
 
-.uniForm .dateinput {
-  background: none repeat scroll 0 0 #FFFFFF;
-  border: 1px solid #AAAAAA;
-
-}
 
 #div_id_bio, #div_id_othercontacts {
   text-align:left;
@@ -34,12 +35,12 @@ body#edit-page div#left, body#edit-page div#right{
 
 #div_id_bio label {
   display:block;
-  margin-left:10.1em;
+  margin-left:9.6em;
 }
 
 #div_id_othercontacts label {
   display:block;
-  margin-left:4.2em;
+  margin-left:3.71em;
 
 }
 
@@ -52,11 +53,6 @@ textarea#id_othercontacts,  textarea#id_bio {
 }
 
 
-.uniForm label:after {
-  font-weight:bold;
-  content:":";
-}
-
 span.asteriskField {
   color: #dd4b39;
 }
@@ -68,15 +64,10 @@ span.asteriskField {
 }
 
 
-/*
-div.ctrlHolder {
-  position:relative;
+a.action {
+  padding-left:1.77em;
 }
-span.asteriskField {
-  position:absolute;
-  display:block;
-  right: -0.33em;
-  bottom:0.33em;
-  color: red;
+
+#div_id_skype label {
+  margin-right: 0.77em;
 }
-*/

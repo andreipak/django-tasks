@@ -133,3 +133,12 @@ def requests(request):
 def logout(request):
     _logout(request)
     return redirect(request.META.get('HTTP_REFERER','/'))
+
+
+def javascript(request, app, js):
+    """
+    Used to request javascript templates.
+    """
+    return render_to_response("%s/%s.js" % (app, js),
+        context_instance=RequestContext(request))
+
