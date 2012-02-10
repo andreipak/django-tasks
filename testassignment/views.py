@@ -11,6 +11,9 @@ from django.contrib.auth import logout as _logout
 from django.forms.models import model_to_dict
 from t6_widgetsjquery.forms import ContactUniForm as ContactModelForm
 
+from django.core.serializers import serialize
+from django.utils import simplejson as json
+
 
 def index(request, template='index.html'):
     contact = get_object_or_404(Contact)
@@ -78,28 +81,26 @@ def editmodel(request, template_name='editmodel.html'):
     contact = get_object_or_404(Contact)
 
     if request.method == 'POST':
-        form = ContactModelForm(request.POST, request.FILES)
+        form = ContactModelForm(request.POST, request.FILES, instance=contact)
         if form.is_valid():
+            form.save()
 
-            #it is not handled by default, do it manually
-            if form.cleaned_data.get('photo'):
-                contact.photo = form.cleaned_data['photo']
-            elif request.POST.get('photo-clear') == 'on': #clear checkbox
-                contact.photo = None
+            if request.is_ajax():
+                return HttpResponse(serialize('json', (contact,)), mimetype="application/javascript")
 
-            contact.save()
             return redirect('/')
 
         else:
+            if request.is_ajax():
+                return HttpResponse(json.dumps(form.errors), mimetype="application/javascript")
+
+
             return render_to_response(
                     template_name,
                     context_instance=RequestContext(
                         request,
                         {'form':form, 'contact':contact}
                     ))
-
-
-
 
     form = ContactModelForm(instance=contact)
 
@@ -141,4 +142,3 @@ def javascript(request, app, js):
     """
     return render_to_response("%s/%s.js" % (app, js),
         context_instance=RequestContext(request))
-

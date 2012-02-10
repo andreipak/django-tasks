@@ -71,3 +71,19 @@ a.action {
 #div_id_skype label {
   margin-right: 0.77em;
 }
+
+#feedback {
+  position: absolute;
+  left: 0.5em;
+  top: 0.1em;
+  font-size:0.77em;
+  font-weight:bold;
+  background-color: #eee;
+  padding: 0.3em;
+  display:none;
+  border: 1px solid #ddd;
+}
+
+#feedback.error {
+  color: #dd4b39;
+}

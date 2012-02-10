@@ -22,12 +22,13 @@ class ContactUniForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_action = ''
         self.helper.form_method = 'POST'
+        self.helper.form_id = 'contact_form'
 
         self.helper.layout = Layout(
             Div('name','lastname','dateofbirth','bio', css_id='left'),
             Div('email','jabber','skype','othercontacts', css_id='right'),
             HTML('''<div class="clear"></div>
-                    <input type="submit" name="submit" value="Save" alt="Save changes" />
+                    <input id="save" type="submit" name="submit" value="Save" alt="Save changes" />
                     <a href="/" class="action" onclick="return confirm('Do you really want to cancel?')">Cancel</a>'''
             )
 

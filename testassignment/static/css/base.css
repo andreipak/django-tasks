@@ -86,3 +86,7 @@ ul.errorlist {
 body#index-page div#left, body#index-page div#right{
   text-align: left;
 }
+
+div#body {
+  margin: 1em;
+}
