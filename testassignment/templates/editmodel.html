@@ -12,34 +12,36 @@
 
 {% block docreadyjs %}
   $('.jqueryuidatepickerwidget').datepicker({ dateFormat: 'yy-mm-dd' });
-  function notify(msg, is_error, timeout) {
-    if(console)  console.log(new Date(), msg);
+  function log() {
+    if(0) return;
+    if(typeof console != 'undefined' && typeof console.log == 'function')
+      console.log((new Date()).toLocaleTimeString(), arguments);
 
+  }
+
+  function notify(msg, is_error, timeout) {
+    log('notify:', msg, is_error, timeout);
+
+    feedback = $('#feedback')
 
     if(is_error)
-      $('#feedback').addClass('error')
+      feedback.addClass('error')
     else
       $('#feedback.error').removeClass('error')
 
-    $('#feedback').text(msg);
-
-    $('#feedback').css('display','block');
-
-
-    //default timeout is 2s
-    if(!timeout) timeout = 2000.0
-
-    setTimeout(function() {
-      $('#feedback').css('display','none');
-    }, timeout);
+    feedback.text(msg);
+    feedback.fadeIn('slow');
 
 
+    //default timeout is 3s
+    if(!timeout) timeout = 3000.0;
+    feedback.fadeOut(timeout);
   }
 
   $('#contact_form').ajaxForm({
     dataType: 'json',
     success: function(response) {
-      console.log(response)
+      log('response:', response);
       if(response && response.length && response[0].pk) {
         notify('Saved [pk='+ response[0].pk +']');
 
