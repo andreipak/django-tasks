@@ -9,7 +9,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'testassignment.views.index', name='index'),
-    url(r'^edit/$', 'testassignment.views.edit', name='edit'),
+    url(r'^edit/$', 'testassignment.views.editmodel', name='edit'),
+    url(r'^editform/$', 'testassignment.views.editform', name='editform'),
+    url(r'^editmodel/$', 'testassignment.views.editmodel', name='editmodel'),
+
     url(r'^requests/$', 'testassignment.views.requests', name='requests'),
     url(r'^settings/$', 'testassignment.views.settings', name='settings'),
     url(r'^admin/', include(admin.site.urls)),
@@ -18,6 +21,9 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'testassignment.views.logout', name='logout'),
     url(r'^accounts/profile/$', redirect_to, {'url': '/edit/'}), #after logging go to edit-page
     url(r'^accounts/login/$', redirect_to, {'url': '/login/'}),
+
+    url(r'^js/([\w\.\-]+)/([\w\.\-]+)/$', 'testassignment.views.javascript', name='javascript'),
+
 
 
 )

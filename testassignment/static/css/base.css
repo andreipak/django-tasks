@@ -1,14 +1,28 @@
+@import url('reset.css');
+
 body {
   font-family: Georgia, serif;
   font-size: 0.9em;
 }
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+
+}
+
+div.content_title {
+  margin: 1em;
+
+}
+
 
 div#left {
   float:left;
   margin-right: 3em;
   text-align: right;
   margin-bottom: 3em;
-  width:360px
+  width:360px;
 }
 
 div#right {
@@ -71,4 +85,8 @@ ul.errorlist {
 
 body#index-page div#left, body#index-page div#right{
   text-align: left;
+}
+
+div#body {
+  margin: 1em;
 }

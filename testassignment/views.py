@@ -9,7 +9,10 @@ from django.contrib.auth.decorators import login_required
 from testassignment.t5_editform.forms import ContactForm
 from django.contrib.auth import logout as _logout
 from django.forms.models import model_to_dict
+from t6_widgetsjquery.forms import ContactUniForm as ContactModelForm
 
+from django.core.serializers import serialize
+from django.utils import simplejson as json
 
 def index(request, template='index.html'):
     contact = get_object_or_404(Contact)
@@ -23,7 +26,7 @@ def index(request, template='index.html'):
                     ))
 
 @login_required
-def edit(request, template_name='edit.html'):
+def editform(request, template_name='editform.html'):
 
     contact = get_object_or_404(Contact)
 
@@ -71,6 +74,42 @@ def edit(request, template_name='edit.html'):
                     ))
 
 
+@login_required
+def editmodel(request, template_name='editmodel.html'):
+
+    contact = get_object_or_404(Contact)
+
+    if request.method == 'POST':
+        form = ContactModelForm(request.POST, request.FILES, instance=contact)
+        if form.is_valid():
+            form.save()
+
+            if request.is_ajax():
+                return HttpResponse(serialize('json', (contact,)), mimetype='application/json')
+
+            return redirect('/')
+
+        else:
+            if request.is_ajax():
+                return HttpResponse(json.dumps(form.errors), mimetype='application/json')
+
+
+            return render_to_response(
+                    template_name,
+                    context_instance=RequestContext(
+                        request,
+                        {'form':form, 'contact':contact}
+                    ))
+
+    form = ContactModelForm(instance=contact)
+
+    return render_to_response(
+                    template_name,
+                    context_instance=RequestContext(
+                        request,
+                        {'form':form, 'contact':contact}
+                    ))
+
 
 def settings(request, template='settings.html'):
 
@@ -92,3 +131,11 @@ def requests(request):
 def logout(request):
     _logout(request)
     return redirect(request.META.get('HTTP_REFERER','/'))
+
+
+def javascript(request, app, js):
+    """
+    Used to request javascript templates.
+    """
+    return render_to_response("%s/%s.js" % (app, js),
+        context_instance=RequestContext(request))

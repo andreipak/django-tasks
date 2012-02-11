@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" href="/static/css/base.css" />
-  {% block extrahead %}{% endblock %}
+  {% block head_top %}{% endblock %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css" />
+
+  {% block jquery %}
+  <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js" type="text/javascript"></script>
+  {% block js %}{% endblock %}{# Override for view-specific js libraries to be loaded #}
+  <script type="text/javascript">
+  //<![CDATA[
+  {# Override this block to add functions to bind on document ready. #}
+  $(document).ready(function() {
+      {% block docreadyjs %}{% endblock %}
+  });
+  {# Override this block to add inline js #}
+  {% block inlinejs %}{% endblock %}
+  //]]>
+  </script>
+  {% endblock %}
   <title>{% block title %}{% endblock %}</title>
+
+  {% block head_bottom %}{% endblock %}
 </head>
 <body id="{% block body_id %}{% endblock %}">
   <div id="body">
