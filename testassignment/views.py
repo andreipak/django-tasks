@@ -14,7 +14,6 @@ from t6_widgetsjquery.forms import ContactUniForm as ContactModelForm
 from django.core.serializers import serialize
 from django.utils import simplejson as json
 
-
 def index(request, template='index.html'):
     contact = get_object_or_404(Contact)
 
@@ -27,7 +26,7 @@ def index(request, template='index.html'):
                     ))
 
 @login_required
-def edit(request, template_name='edit.html'):
+def editform(request, template_name='editform.html'):
 
     contact = get_object_or_404(Contact)
 
@@ -86,13 +85,13 @@ def editmodel(request, template_name='editmodel.html'):
             form.save()
 
             if request.is_ajax():
-                return HttpResponse(serialize('json', (contact,)), mimetype="application/javascript")
+                return HttpResponse(serialize('json', (contact,)), mimetype='application/json')
 
             return redirect('/')
 
         else:
             if request.is_ajax():
-                return HttpResponse(json.dumps(form.errors), mimetype="application/javascript")
+                return HttpResponse(json.dumps(form.errors), mimetype='application/json')
 
 
             return render_to_response(
@@ -110,8 +109,6 @@ def editmodel(request, template_name='editmodel.html'):
                         request,
                         {'form':form, 'contact':contact}
                     ))
-
-
 
 
 def settings(request, template='settings.html'):

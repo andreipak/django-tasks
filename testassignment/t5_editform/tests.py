@@ -6,6 +6,7 @@ from time import strptime
 
 from testassignment.t1_contact.models import Contact
 
+VEIW_NAME = 'editform'
 
 class EditFormTest(TestCase):
     def setUp(self):
@@ -29,12 +30,12 @@ class EditFormTest(TestCase):
 
 
     def test_auth_redirect(self):
-        response = self.client.get(reverse('edit'))
+        response = self.client.get(reverse(VEIW_NAME))
         self.failUnlessEqual(response.status_code, 302)
 
 
     def test_form_post(self):
-        response = self.admin.post(reverse('edit'), \
+        response = self.admin.post(reverse(VEIW_NAME), \
                         self._contact, follow=True)
 
         contact = Contact.objects.get(pk=1)
@@ -58,7 +59,7 @@ class EditFormTest(TestCase):
         bad_contact['dateofbirth'] = '1981'
 
         response = self.admin.post(
-                        reverse('edit'),
+                        reverse(VEIW_NAME),
                         bad_contact, follow=True
                     )
 
