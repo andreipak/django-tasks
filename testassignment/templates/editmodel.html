@@ -12,10 +12,47 @@
 
 {% block docreadyjs %}
   $('.jqueryuidatepickerwidget').datepicker({ dateFormat: 'yy-mm-dd' });
+
+  USE_JS_VALIDATION = true; {# fixme: add key to settings.py #}
+
   function log() {
     if(0) return;
     if(typeof console != 'undefined' && typeof console.log == 'function')
       console.log((new Date()).toLocaleTimeString(), arguments);
+  }
+
+  function is_valid_length(value) {
+    if(typeof value == 'string')
+      return value.length > 0;
+
+    return false;
+
+  }
+
+
+  function validate(formData, form, options) {
+    error_text = 'This field is required.';
+    errors_num = 0;
+
+    $(form).find(':text').each(function() { //! textarea skipped
+      input = $(this);
+      holder = input.parent();
+      is_required = holder.children('.requiredField').length > 0;
+      value = input.fieldValue()[0];
+
+      if(is_required && !is_valid_length(value)) {
+        holder.addClass('error');
+        error_html = '<p id="error_0_'+ input.attr('id') +'" class="errorField">' + error_text + '</p>';
+        holder.prepend(error_html);
+        errors_num++;
+      }
+
+
+    });
+
+
+    log('errors_num', errors_num);
+    return errors_num;
 
   }
 
@@ -60,7 +97,7 @@
         notify('Can not save', true);
       }
       //enable form
-      $('#contact_form textarea, #contact_form input:text').attr('disabled', false);
+      $('#contact_form :input').attr('disabled', false);
 
     }, //success
 
@@ -69,8 +106,13 @@
       //hide error messages
       $('p.errorField').remove();
       $('div.ctrlHolder').removeClass('error');
+
+
+      if(USE_JS_VALIDATION && validate(formData, form, options)) //if any error(s) do not submit
+        return false;
+
       //disable form
-      $('#contact_form textarea, #contact_form input:text').attr('disabled', true);
+      $('#contact_form :input').attr('disabled', true);
 
     } //beforeSubmit
 
