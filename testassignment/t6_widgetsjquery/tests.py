@@ -20,7 +20,7 @@ class AjaxEditFormTest(TestCase):
         self._contact = { #copied from fixture
             "bio": "Application Developer, System Administrator \r\nand Researcher in a wide variety of \r\napplications and tools",
             "name": "Andrei",
-            #"contacts": "Kharkov, Lugovaya st. 30A/2",
+            "contacts": "Kharkov, Lugovaya st. 30A/2",
             "lastname": "Pak",
             "dateofbirth": "1981-03-13",
             "othercontacts": "http://google.com/profiles/pak.andrei - Google Profile\r\nhttp://pakan.ru - Personal Page",
