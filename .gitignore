@@ -2,5 +2,6 @@ venv/
 .env/
 *.pyc
 *.sqlite3
+*.db
 *~
 testassignment/static/photo/*
