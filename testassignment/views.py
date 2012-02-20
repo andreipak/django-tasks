@@ -11,6 +11,9 @@ from django.contrib.auth import logout as _logout
 from django.forms.models import model_to_dict
 from t6_widgetsjquery.forms import ContactUniForm as ContactModelForm
 
+from uni_form.templatetags.uni_form_tags import UniFormNode
+
+
 from django.core.serializers import serialize
 from django.utils import simplejson as json
 
@@ -46,7 +49,9 @@ def editform(request, template_name='editform.html'):
             if form.cleaned_data['photo']:
                 contact.photo = form.cleaned_data['photo']
             elif request.POST.get('photo-clear') == 'on': #clear checkbox
-                    contact.photo = None #fixme: handle removing from fs
+                    #rm_photo(contact.photo)
+                    contact.photo = None
+
 
 
             contact.save()
@@ -81,34 +86,31 @@ def editmodel(request, template_name='editmodel.html'):
 
     if request.method == 'POST':
         form = ContactModelForm(request.POST, request.FILES, instance=contact)
+
+        if request.POST.get('is_ajaxForm') == '1':
+            if form.is_valid():
+                form.save()
+                #hack for rendering "photo-clear" input
+                form = ContactModelForm(instance=contact)
+
+            return render_to_response('contact_form.html', {
+                            'form':form, 'contact':contact
+                        }, context_instance=RequestContext(request))
+
         if form.is_valid():
             form.save()
-
-            if request.is_ajax():
-                return HttpResponse(serialize('json', (contact,)), mimetype='application/json')
-
             return redirect('/')
 
-        else:
-            if request.is_ajax():
-                return HttpResponse(json.dumps(form.errors), mimetype='application/json')
+        return render_to_response(template_name, {
+                    'form':form, 'contact':contact
+                }, context_instance=RequestContext(request))
 
-
-            return render_to_response(
-                    template_name,
-                    context_instance=RequestContext(
-                        request,
-                        {'form':form, 'contact':contact}
-                    ))
-
+    #GET request
     form = ContactModelForm(instance=contact)
 
-    return render_to_response(
-                    template_name,
-                    context_instance=RequestContext(
-                        request,
-                        {'form':form, 'contact':contact}
-                    ))
+    return render_to_response(template_name, {
+                'form':form, 'contact':contact
+            }, context_instance=RequestContext(request))
 
 
 def settings(request, template='settings.html'):
