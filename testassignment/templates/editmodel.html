@@ -37,7 +37,6 @@ function notify(msg, is_error, timeout) {
 }
 
 var ajaxFormOptions = {
-   url: '/editmodel/',
    success: function(responseText, statusText, xhr, form) {
       log('response:', responseText, statusText);
 
@@ -72,6 +71,9 @@ var ajaxFormOptions = {
 
 {% block docreadyjs %}
    $('.jqueryuidatepickerwidget').datepicker({dateFormat: 'yy-mm-dd'});
+
+   ajaxFormOptions.url = window.location.href;
+
    $('#contact_form')
       .ajaxForm(ajaxFormOptions)
       .append('<input type="hidden" name="is_ajaxForm" value="1" />')

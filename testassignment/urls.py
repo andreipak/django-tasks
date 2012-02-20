@@ -13,19 +13,22 @@ urlpatterns = patterns('',
     url(r'^editform/$', 'testassignment.views.editform', name='editform'),
     url(r'^editmodel/$', 'testassignment.views.editmodel', name='editmodel'),
 
+    url(r'^editmodel/reversed/$', 'testassignment.views.editmodel',
+            {'reversedfields':True}, name='editmodel_reversed'),
+
     url(r'^requests/$', 'testassignment.views.requests', name='requests'),
     url(r'^settings/$', 'testassignment.views.settings', name='settings'),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'},
+        name='login'),
+
     url(r'^logout/$', 'testassignment.views.logout', name='logout'),
     url(r'^accounts/profile/$', redirect_to, {'url': '/edit/'}), #after logging go to edit-page
     url(r'^accounts/login/$', redirect_to, {'url': '/login/'}),
 
-    url(r'^js/([\w\.\-]+)/([\w\.\-]+)/$', 'testassignment.views.javascript', name='javascript'),
-
-
-
+    url(r'^js/([\w\.\-]+)/([\w\.\-]+)/$', 'testassignment.views.javascript',
+        name='javascript'),
 )
 
 if settings.DEBUG:
