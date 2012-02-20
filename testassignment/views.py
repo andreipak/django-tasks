@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from testassignment.t5_editform.forms import ContactForm
 from django.contrib.auth import logout as _logout
 from django.forms.models import model_to_dict
-from t6_widgetsjquery.forms import ContactUniForm as ContactModelForm
+from t6_widgetsjquery.forms import ContactUniForm
+from t7_reversedform.forms import ContactUniFormReversed
 
 from uni_form.templatetags.uni_form_tags import UniFormNode
 
@@ -80,9 +81,14 @@ def editform(request, template_name='editform.html'):
 
 
 @login_required
-def editmodel(request, template_name='editmodel.html'):
+def editmodel(request, template_name='editmodel.html', reversedfields=False):
 
     contact = get_object_or_404(Contact)
+
+    if reversedfields:
+        ContactModelForm = ContactUniFormReversed
+    else:
+        ContactModelForm = ContactUniForm
 
     if request.method == 'POST':
         form = ContactModelForm(request.POST, request.FILES, instance=contact)
