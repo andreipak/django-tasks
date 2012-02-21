@@ -24,12 +24,20 @@ urlpatterns = patterns('',
         name='login'),
 
     url(r'^logout/$', 'testassignment.views.logout', name='logout'),
-    url(r'^accounts/profile/$', redirect_to, {'url': '/edit/'}), #after logging go to edit-page
+    #after logging in - go to edit-page
+    url(r'^accounts/profile/$', redirect_to, {'url': '/edit/'}),
     url(r'^accounts/login/$', redirect_to, {'url': '/login/'}),
 
     url(r'^js/([\w\.\-]+)/([\w\.\-]+)/$', 'testassignment.views.javascript',
         name='javascript'),
+)
 
-    url(r'^static/(?P<path>.*)$',
+
+#static media
+urlpatterns += patterns('',
+    (r'^static/(?P<path>.*)$',
         'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+
+    (r'^admin_media/(.*)$',
+        'django.views.static.serve', {'document_root': 'django/contrib/admin/media/'}),
 )
