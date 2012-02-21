@@ -1,16 +1,9 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from django.core.management import get_commands, call_command
 
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+COMMAND = 'listmodels'
+class ListModelsCommandTest(TestCase):
+    def test_command_call(self):
+        commands_dict = get_commands()
+        self.assertTrue(COMMAND in commands_dict)
+        call_command(COMMAND)
