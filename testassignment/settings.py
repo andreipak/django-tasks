@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'testassignment.t6_widgetsjquery',
     'testassignment.t7_reversedform',
     'testassignment.t8_editlink',
+    'testassignment.t9_command',
 
 )
 
