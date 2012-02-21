@@ -5,3 +5,5 @@ venv/
 *.db
 *~
 testassignment/static/photo/*
+testassignment/media/photo/*
+!testassignment/media/photo/placeholder.txt

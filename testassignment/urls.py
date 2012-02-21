@@ -32,12 +32,12 @@ urlpatterns = patterns('',
         name='javascript'),
 )
 
+#static & media
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$',
+            'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 
-#static media
-urlpatterns += patterns('',
-    (r'^static/(?P<path>.*)$',
-        'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-
-    (r'^admin_media/(.*)$',
-        'django.views.static.serve', {'document_root': 'django/contrib/admin/media/'}),
-)
+        (r'^media/(?P<path>.*)$',
+            'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    )
