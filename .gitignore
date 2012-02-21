@@ -1,5 +1,6 @@
 venv/
 .env/
+*.dat
 *.pyc
 *.sqlite3
 *.db
