@@ -1,13 +1,15 @@
 {% extends "base.html" %}
+{% load adminlinks %}
+{% block title %}42 Coffee Cups Test Assignment: Edit{% endblock %}
 {% block jquery %}{% endblock %} {# disable jquery #}
 {% block body_id %}index-page{% endblock %}
-
-
 {% block content_title %}
+
 <h2>42 Coffee Cups Test Assignment</h2>
 <div id="nav">
 {% if user.is_authenticated %}
-  <a href="/editmodel/reversed/">Edit</a>|
+  <a href="{% url editmodel_reversed %}">Edit</a>&nbsp;
+  {% admin_edit_link contact (admin) %}&nbsp;|
   <a href="{% url testassignment.views.logout %}">Logout</a>
 
 {% else %}
