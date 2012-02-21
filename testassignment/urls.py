@@ -29,14 +29,7 @@ urlpatterns = patterns('',
 
     url(r'^js/([\w\.\-]+)/([\w\.\-]+)/$', 'testassignment.views.javascript',
         name='javascript'),
-)
 
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        (r'^static/(?P<path>.*)$',
-        'django.views.static.serve',
-        {
-            'document_root': \
-            os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static')
-        }),
-    )
+    url(r'^static/(?P<path>.*)$',
+        'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+)

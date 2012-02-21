@@ -138,6 +138,8 @@ INSTALLED_APPS = (
     'testassignment.t5_editform',
     'testassignment.t6_widgetsjquery',
     'testassignment.t7_reversedform',
+    'testassignment.t8_editlink',
+
 )
 
 # A sample logging configuration. The only tangible logging
