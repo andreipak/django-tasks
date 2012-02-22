@@ -4,7 +4,7 @@ from datetime import datetime
 IGNORELIST = (
     'AuditLogEntry',
     'HttpRequestLogEntry',
-    'LogEntry', #admin
+    'LogEntry', #django admin app
 )
 
 def AuditLogger(sender, **kwargs):
@@ -19,5 +19,5 @@ def AuditLogger(sender, **kwargs):
 
     AuditLogEntry.objects.create(
         model=sender._meta.object_name,
-        instance=kwargs.get('instance'),
+        instance=unicode(kwargs.get('instance')),
         action=action)
