@@ -142,7 +142,7 @@ INSTALLED_APPS = (
     'testassignment.t7_reversedform',
     'testassignment.t8_editlink',
     'testassignment.t9_command',
-
+    'testassignment.t10_signals',
 )
 
 # A sample logging configuration. The only tangible logging
