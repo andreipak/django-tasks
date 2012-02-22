@@ -1,6 +1,6 @@
 from django.core.management.base import NoArgsCommand, BaseCommand
 from optparse import make_option
-from django.db import models
+from django.contrib.contenttypes.models import ContentType
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -21,9 +21,10 @@ class Command(BaseCommand):
     help = 'Print all project models and the count of objects in every model'
 
     def handle(self, *args, **kwargs):
-         for m in models.get_models():
-            row = "%s.%s\t%2d" % (m.__module__, m.__name__,
-                        m._default_manager.count())
+         for ct in ContentType.objects.all():
+            m = ct.model_class()
+            row = "%s.%s\t%d" % (m.__module__, m.__name__,
+        	    m._default_manager.count())
 
             self.stdout.write('%s\n' % row)
 
