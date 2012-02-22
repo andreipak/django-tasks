@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'devserver',
     'uni_form',
+    'south',
     'testassignment.t1_contact',
     'testassignment.t3_httplog',
     'testassignment.t4_settings_ctxp',
@@ -143,6 +144,7 @@ INSTALLED_APPS = (
     'testassignment.t8_editlink',
     'testassignment.t9_command',
     'testassignment.t10_signals',
+    'testassignment.t13_addfield',
 )
 
 # A sample logging configuration. The only tangible logging
