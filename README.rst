@@ -97,9 +97,11 @@ Your customer sends the change request. Task: understand what he needs and imple
 
 Customer's text:
 
- *About requests log: we have to add a priortiy field,
+::
+
+ About requests log: we have to add a priortiy field,
  so we can show the different requests in the order we want.
- Priority 1 (or = 0) will be the standard selection.*
+ Priority 1 (or = 0) will be the standard selection.
 
 Task: understand what he needs and implement.
 
