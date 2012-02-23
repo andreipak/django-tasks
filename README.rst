@@ -1,11 +1,12 @@
-==============================
-42 Coffee Cups Test Assignment
-==============================
+====================================
+42 Coffee Cups Test Assignment Tasks
+====================================
 
-Tasks
-=====
 
- 1. ticket:1 ``base`` Create basic django project that would present your name, surname, bio, contacts on the main page.
+1. ticket:1 ``base``
+--------------------
+
+Create basic django project that would present your name, surname, bio, contacts on the main page.
 
   * Data should be stored in the DB, that's
   * `manage.py syncdb`
@@ -15,13 +16,23 @@ Tasks
   * There should be `Makefile` with `test` target running your tests (`make test` to verify it)
   * Mockup: http://framebox.org/Awq-bCzXsh
 
- 2. ticket:3 ``middleware&lists`` Create middleware that stores all http requests in the DB
+2. ticket:3 ``middleware&lists``
+--------------------------------
+
+Create middleware that stores all http requests in the DB
 
   * Also, on a separate page show first 10 http requests that are stored by middleware
   * Mockup: http://framebox.org/Awv-QVXKyN
 
- 3. ticket:4 ``template context`` Create template-context-processor that adds django.settings to the context
- 4. ticket:5 ``forms&auth`` Create page with form that allows to edit data, presented on the main page
+3. ticket:4 ``template context`` 
+--------------------------------
+
+Create template-context-processor that adds django.settings to the context
+
+4. ticket:5 ``forms&auth``
+-------------------------- 
+
+Create page with form that allows to edit data, presented on the main page
 
   * Add auth to this page.
   * Upload and show photo.
@@ -31,7 +42,10 @@ Tasks
    - http://framebox.org/wsv-tfwFbz
    - http://framebox.org/wSk-YPMrdM
 
- 5. ticket:6 ``forms-widgets&jquery`` For birth date on the same page add calendar widget
+5. ticket:6 ``forms-widgets&jquery``
+------------------------------------
+
+For birth date on the same page add calendar widget
 
   * Create own `django widget`_
   * Make this form ajax, using jquery.forms
@@ -43,32 +57,49 @@ Tasks
   * Add birthday to main page.
   * Mockup: http://framebox.org/Awr-CQiBTD
 
- 6. ticket:7 ``forms-model-extra`` Let input fields order be reversed
+6. ticket:7 ``forms-model-extra``
+---------------------------------
+
+Let input fields order be reversed
 
   * All previous tasks where implemented using `forms.ModelForm`? ;)
   * let input fields order be reversed
   * Mockup: http://framebox.org/Aws-cNPUZo
 
- 7. ticket:8 ``template-tags`` Create tag that accepts any object and renders the link to its admin edit page (`{% edit_link request.user %}`)
+7. ticket:8 ``template-tags``
+-----------------------------
 
-  * Mockup: http://framebox.org/AwS-tsQHP
+Create tag that accepts any object and renders the link to its admin edit page (`{% edit_link request.user %}`)
 
- 8. ticket:9 ``commands`` Create django command that prints all project models and the count of objects in every model
+Mockup: http://framebox.org/AwS-tsQHP
 
-  Also:
+8. ticket:9 ``commands``  
+------------------------ 
 
-   * duplicate output to STDERR with prefix "error: "
-   * write bash script which execute your command and save output of stderr into file. File name should be current date with extension .dat
+Create django command that prints all project models and the count of objects in every model
 
- 9. ticket:10 ``signals`` Create signal processor that, for every model, creates the db entry about the object creation/editing/deletion
- 10. ticket:13 ``understanding`` Your customer sends the change request. Task: understand what he needs and implement.
+Also:
 
-  Customer's text:
+ * duplicate output to STDERR with prefix "error: "
+ * write bash script which execute your command and save output of stderr into file. File name should be current date with extension .dat
 
-   ``About requests log: we have to add a priortiy field,
-   so we can show the different requests in the order we want.
-   Priority 1 (or = 0) will be the standard selection.``
+9. ticket:10 ``signals``
+------------------------
 
-  Task: understand what he needs and implement.
+Create signal processor that, for every model, creates the db entry about the object creation/editing/deletion
+
+
+10. ticket:13 ``understanding``
+-------------------------------
+
+Your customer sends the change request. Task: understand what he needs and implement.
+
+Customer's text:
+
+ *About requests log: we have to add a priortiy field,
+ so we can show the different requests in the order we want.
+ Priority 1 (or = 0) will be the standard selection.*
+
+Task: understand what he needs and implement.
 
  .. _`django widget`: http://docs.djangoproject.com/en/dev/ref/forms/widgets/
