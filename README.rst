@@ -9,21 +9,21 @@
 Create basic django project that would present your name, surname, bio, contacts on the main page.
 Data should be stored in the DB, that's
 
-  * `manage.py syncdb`
-  * `manage.py runserver`
-  * open the browser and all data are in, loaded from fixtures.
+* `manage.py syncdb`
+* `manage.py runserver`
+* open the browser and all data are in, loaded from fixtures.
 
-  * Use pip **requirements** and **virtualenv** to manage your third party packages dependencies
-  * There should be `Makefile` with `test` target running your tests (`make test` to verify it)
-  * Mockup: http://framebox.org/Awq-bCzXsh
+* Use **pip requirements** and **virtualenv** to manage your third party packages dependencies
+* There should be `Makefile` with `test` target running your tests (`make test` to verify it)
+* Mockup: http://framebox.org/Awq-bCzXsh
 
 2. ticket:3 ``middleware&lists`` `t3_httplog`_
 --------------------------------
 
 Create middleware that stores all http requests in the DB
 
-  * Also, on a separate page show first 10 http requests that are stored by middleware
-  * Mockup: http://framebox.org/Awv-QVXKyN
+* Also, on a separate page show first 10 http requests that are stored by middleware
+* Mockup: http://framebox.org/Awv-QVXKyN
 
 3. ticket:4 ``template context`` `t4_settings_ctxp`_
 --------------------------------
@@ -35,10 +35,10 @@ Create template-context-processor that adds django.settings to the context
 
 Create page with form that allows to edit data, presented on the main page
 
-  * Add auth to this page.
-  * Upload and show photo.
-  * Upload your photo with a towel to your test server on getBarista.
-  * Mockups:
+* Add auth to this page.
+* Upload and show photo.
+* Upload your photo with a towel to your test server on getBarista.
+* Mockups:
 
    - http://framebox.org/wsv-tfwFbz
    - http://framebox.org/wSk-YPMrdM
@@ -48,24 +48,23 @@ Create page with form that allows to edit data, presented on the main page
 
 For birth date on the same page add calendar widget
 
-  * Create own `django widget`_
-  * Make this form ajax, using jquery.forms
+* Create own `django widget`_
+* Make this form ajax, using jquery.forms
 
    - submit form via ajax
    - indicate loading state
    - disable form during submit, so nothing could be entered/changed there
 
-  * Add birthday to main page.
-  * Mockup: http://framebox.org/Awr-CQiBTD
+* Mockup: http://framebox.org/Awr-CQiBTD
 
 6. ticket:7 ``forms-model-extra`` `t7_reversedform`_
 ---------------------------------
 
 Let input fields order be reversed
 
-  * All previous tasks where implemented using `forms.ModelForm`? ;)
-  * let input fields order be reversed
-  * Mockup: http://framebox.org/Aws-cNPUZo
+* All previous tasks where implemented using `forms.ModelForm`? ;)
+* let input fields order be reversed
+* Mockup: http://framebox.org/Aws-cNPUZo
 
 7. ticket:8 ``template-tags`` `t8_editlink`_
 -----------------------------
@@ -81,8 +80,8 @@ Create django command that prints all project models and the count of objects in
 
 Also:
 
- * duplicate output to STDERR with prefix "error: "
- * write bash script which execute your command and save output of stderr into file. File name should be current date with extension .dat
+* duplicate output to STDERR with prefix "error: "
+* write bash script which execute your command and save output of stderr into file. File name should be current date with extension .dat
 
 9. ticket:10 ``signals`` `t10_signals`_
 ------------------------
