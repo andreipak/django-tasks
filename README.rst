@@ -6,12 +6,13 @@
 1. ticket:1 ``base``
 --------------------
 
-Create basic django project that would present your name, surname, bio, contacts on the main page.
-
-  * Data should be stored in the DB, that's
+Create basic django project that would present your name, surname, bio, contacts on the main page. 
+Data should be stored in the DB, that's
+  
   * `manage.py syncdb`
   * `manage.py runserver`
   * open the browser and all data are in, loaded from fixtures.
+
   * Use pip **requirements** and **virtualenv** to manage your third party packages dependencies
   * There should be `Makefile` with `test` target running your tests (`make test` to verify it)
   * Mockup: http://framebox.org/Awq-bCzXsh
