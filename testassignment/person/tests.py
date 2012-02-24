@@ -14,6 +14,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from management.commands.listmodels import count_instances
 
+from django.http import HttpRequest
+from django.template import RequestContext
+
 
 
 INDEX_VIEW_NAME='index'
@@ -330,21 +333,12 @@ class ListModelsCommandTest(TestCase):
 
 
 class SettingsContextProcessorTest(TestCase):
-    def test_response(self):
-        client = Client()
-
-        #check on /
-        response = client.get(reverse(INDEX_VIEW_NAME))
-        self.assertEquals(response.context['SETTINGS'], settings)
-
-        #check on /requests
-        response = client.get(reverse('requests'))
-        self.assertEquals(response.context['SETTINGS'], settings)
-
-        #check on edit-page
-        client.login(username='admin', password='admin')
-        response = client.get(reverse(EDIT_VIEW_NAME))
-        self.assertEquals(response.context['SETTINGS'], settings)
+    def test_key_exists(self):
+        '''
+        Check if SETTINGS key exists in default RequestContext
+        '''
+        default_context = RequestContext(HttpRequest())
+        self.assertTrue(default_context.has_key('SETTINGS'))
 
 
 class AdminEditLinkTest(TestCase):
