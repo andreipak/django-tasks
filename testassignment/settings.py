@@ -5,9 +5,10 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ENABLE_HTTP_REQUEST_LOGGING = True
+ENABLE_AUDIT = True
 
 ADMINS = (
-     ('pak', 'pk@pakan.ru'),
+     ('pak', 'admin@pakan.ru'),
 )
 
 MANAGERS = ADMINS
@@ -113,7 +114,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'testassignment.middleware.HttpRequestDbLoggingMiddleware',
+    'testassignment.logger.middleware.HttpRequestDbLoggingMiddleware',
 )
 
 ROOT_URLCONF = 'testassignment.urls'
@@ -131,20 +132,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    # 'django.contrib.admindocs',
     'devserver',
     'uni_form',
     'south',
-    'testassignment.t1_contact',
-    'testassignment.t3_httplog',
-    'testassignment.t4_settings_ctxp',
-    'testassignment.t5_editform',
-    'testassignment.t6_widgetsjquery',
-    'testassignment.t7_reversedform',
-    'testassignment.t8_editlink',
-    'testassignment.t9_command',
-    'testassignment.t10_signals',
-    'testassignment.t13_addfield',
+    'testassignment.logger',
+    'testassignment.person',
 )
 
 # A sample logging configuration. The only tangible logging
