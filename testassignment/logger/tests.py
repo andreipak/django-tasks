@@ -10,21 +10,20 @@ class MiddlewareTest(TestCase):
         client = Client()
         response = client.get('/')
 
-        hrle = HttpRequestLogEntry.objects.get(path='/')
-        self.assertNotEquals(hrle, None)
-        self.assertEquals(hrle.request_method, 'GET')
-        self.assertEquals(hrle.priority, 0)
+        log_entry = HttpRequestLogEntry.objects.get(path='/')
+        self.assertNotEquals(log_entry, None)
+        self.assertEquals(log_entry.request_method, 'GET')
+        self.assertEquals(log_entry.priority, 0)
 
 
 class AuditLoggerTest(TestCase):
     def setUp(self):
         self._contact = { #copied from fixture
             "bio": "Application Developer, System Administrator \r\nand Researcher in a wide variety of \r\napplications and tools",
-            "name": "Andrei",
-            "contacts": "Kharkov, Lugovaya st. 30A/2",
-            "lastname": "Pak",
-            "dateofbirth": "1981-03-13",
-            "othercontacts": "http://google.com/profiles/pak.andrei - Google Profile\r\nhttp://pakan.ru - Personal Page",
+            "first_name": "Andrei",
+            "last_name": "Pak",
+            "dob": "1981-03-13",
+            "other_contacts": "http://google.com/profiles/pak.andrei - Google Profile\r\nhttp://pakan.ru - Personal Page",
             "skype": "pak.andrei",
             "jabber": "pak.andrei@gmail.com",
             "email": "pak.andrei@gmail.com",
@@ -38,11 +37,11 @@ class AuditLoggerTest(TestCase):
         count_after = AuditLogEntry.objects.count()
         self.assertEqual(count_after - 1, count_before)
 
-        ale = AuditLogEntry.objects.latest('date')
-        self.assertNotEquals(ale, None)
-        self.assertEquals(ale.model, contact._meta.object_name)
-        self.assertEquals(ale.instance, unicode(contact))
-        self.assertEquals(ale.action, AuditLogEntry.ACTION_CREATE)
+        log_entry = AuditLogEntry.objects.latest('date')
+        self.assertNotEquals(log_entry, None)
+        self.assertEquals(log_entry.model, contact._meta.object_name)
+        self.assertEquals(log_entry.instance, unicode(contact))
+        self.assertEquals(log_entry.action, AuditLogEntry.ACTION_CREATE)
 
     def test_object_update(self):
 
@@ -55,11 +54,11 @@ class AuditLoggerTest(TestCase):
         count_after = AuditLogEntry.objects.count()
         self.assertEqual(count_after - 1, count_before)
 
-        ale = AuditLogEntry.objects.latest('date')
-        self.assertNotEquals(ale, None)
-        self.assertEquals(ale.model, contact._meta.object_name)
-        self.assertEquals(ale.instance, unicode(contact))
-        self.assertEquals(ale.action, AuditLogEntry.ACTION_UPDATE)
+        log_entry = AuditLogEntry.objects.latest('date')
+        self.assertNotEquals(log_entry, None)
+        self.assertEquals(log_entry.model, contact._meta.object_name)
+        self.assertEquals(log_entry.instance, unicode(contact))
+        self.assertEquals(log_entry.action, AuditLogEntry.ACTION_UPDATE)
 
     def test_object_delete(self):
 
@@ -71,8 +70,8 @@ class AuditLoggerTest(TestCase):
         count_after = AuditLogEntry.objects.count()
         self.assertEqual(count_after - 1, count_before)
 
-        ale = AuditLogEntry.objects.latest('date')
-        self.assertNotEquals(ale, None)
-        self.assertEquals(ale.model, contact._meta.object_name)
-        self.assertEquals(ale.instance, unicode(contact))
-        self.assertEquals(ale.action, AuditLogEntry.ACTION_DELETE)
+        log_entry = AuditLogEntry.objects.latest('date')
+        self.assertNotEquals(log_entry, None)
+        self.assertEquals(log_entry.model, contact._meta.object_name)
+        self.assertEquals(log_entry.instance, unicode(contact))
+        self.assertEquals(log_entry.action, AuditLogEntry.ACTION_DELETE)

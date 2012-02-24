@@ -94,12 +94,12 @@ var ajaxFormOptions = {
 {% block content_title %}<h2>42 Coffee Cups Test Assignment</h2>{% endblock %}
 {% block content %}
 
-<form id="contact_form" class="uniForm" method="post" enctype="multipart/form-data">{% csrf_token %}
+<form id="contact_form" class="uniForm" method="post" enctype="multipart/form-data">
    <div id="contact_form_contents">
       {% uni_form form form.helper %}
    </div>
    <input type="submit" name="save" value="Save" alt="Save changes" id="save"/>
-   <a href="/" class="action" onclick="return confirm('Do you really want to cancel?')">Cancel</a>
+   <a href="{% url index %}" class="action" onclick="return confirm('Do you really want to cancel?')">Cancel</a>
 </form>
 
 {% endblock %}

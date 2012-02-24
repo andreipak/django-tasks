@@ -18,8 +18,8 @@ class ContactUniForm(ModelForm):
         model = Contact
         widgets = {
             'bio':Textarea({'cols':40, 'rows':10}),
-            'othercontacts':Textarea({'cols':40, 'rows':10}),
-            'dateofbirth':DateWidget()
+            'other_contacts':Textarea({'cols':40, 'rows':10}),
+            'dob':DateWidget
         }
 
     def __init__(self, *args, **kwargs):
@@ -28,10 +28,10 @@ class ContactUniForm(ModelForm):
 
         self.helper.layout = Layout(
             Div(HTML(PHOTO_PREVIEW_TEMPLATE),
-                'photo','dateofbirth','lastname','name',
+                'photo','dob','last_name','first_name',
                 css_id='left'),
 
-            Div('bio','othercontacts', 'skype', 'jabber', 'email', 'contacts',
+            Div('bio','other_contacts', 'skype', 'jabber', 'email',
                 css_id='right'),
 
             HTML('<div class="clear"></div>'))

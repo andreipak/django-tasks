@@ -1,3 +1,4 @@
+import sys
 from django.test import TestCase
 from django.contrib.auth.models import User
 from models import Contact
@@ -8,17 +9,22 @@ from django.template import Template, Context
 from datetime import date
 from time import strptime
 from django.core.management import get_commands, call_command
+from cStringIO import StringIO
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
+from management.commands.listmodels import count_instances
+
+
 
 INDEX_VIEW_NAME='index'
 EDIT_VIEW_NAME='edit'
 
 CONTACT = { #copied from fixture
     "bio": "Application Developer, System Administrator \r\nand Researcher in a wide variety of \r\napplications and tools",
-    "name": "Andrei",
-    "contacts": "Kharkov, Lugovaya str 30A/2",
-    "lastname": "Pak",
-    "dateofbirth": "1981-03-13",
-    "othercontacts": "http://google.com/profiles/pak.andrei - Google Profile\r\nhttp://pakan.ru - Personal Page",
+    "first_name": "Andrei",
+    "last_name": "Pak",
+    "dob": "1981-03-13",
+    "other_contacts": "http://google.com/profiles/pak.andrei - Google Profile\r\nhttp://pakan.ru - Personal Page",
     "skype": "pak.andrei",
     "jabber": "pak.andrei@gmail.com",
     "email": "pak.andrei@gmail.com",
@@ -26,7 +32,14 @@ CONTACT = { #copied from fixture
 }
 
 
+
 class InitialDataTest(TestCase):
+    '''
+    Check if data preloaded from fixtures
+    '''
+    def setUp(self):
+        self._contact = CONTACT
+
     def test_adminuser(self):
         """
         check if initial superuser exists and has default credentials
@@ -41,12 +54,22 @@ class InitialDataTest(TestCase):
         self.assertEqual(u.check_password(password), True)
 
 
-    def test_model(self):
+    def test_model_fields(self):
         '''
         check if initial contact data exist
         '''
-        c = Contact.objects.get(pk=1)
-        self.assertEqual(c.pk, 1)
+        contact = Contact.objects.get(pk=1)
+
+        for k in self._contact.keys():
+            if k == 'dob':
+                 self.assertEquals(
+                    date(*strptime(self._contact[k], '%Y-%m-%d')[:3]),
+                    contact.dob
+                 )
+            else:
+                self.assertEquals(unicode(self._contact[k]), getattr(contact, k))
+
+
 
 class ModelTest(TestCase):
     def setUp(self):
@@ -60,16 +83,43 @@ class ModelTest(TestCase):
     def test_label(self):
         self.assertEquals(
             unicode(self.contact), \
-            u'%s %s' % (self._contact['name'], self._contact['lastname'])
+            u'%s %s' % (self._contact['first_name'], self._contact['last_name'])
         )
 
 
-class IndexPageTest(TestCase):
+class ViewsTest(TestCase):
+    '''
+    Chack if initial data exists on index & edit pages
+    '''
+    def setUp(self):
+        self._contact = CONTACT
+        self.client = Client()
+
     def test_index(self):
-        client = Client()
-        response = client.get(reverse(INDEX_VIEW_NAME))
+        response = self.client.get(reverse(INDEX_VIEW_NAME))
         self.failUnlessEqual(response.status_code, 200)
         self.assertTrue('<!DOCTYPE HTML>' in response.content)
+
+        for k, v in self._contact.items():
+            if '\r\n' in v: #handling multiline values
+                for line in v.split('\r\n'):
+                    self.assertContains(response, line)
+            else:
+                self.assertContains(response, v)
+
+    def test_edit(self):
+        self.client.login(username='admin', password='admin')
+        response = self.client.get(reverse(EDIT_VIEW_NAME))
+        self.failUnlessEqual(response.status_code, 200)
+        self.assertTrue('<!DOCTYPE HTML>' in response.content)
+
+        for k, v in self._contact.items():
+            if '\r\n' in v:
+                for line in v.split('\r\n'):
+                    self.assertContains(response, line)
+            else:
+                self.assertContains(response, v)
+
 
 
 class ModelFormTest(TestCase):
@@ -93,10 +143,10 @@ class ModelFormTest(TestCase):
         contact = Contact.objects.get(pk=1)
 
         for k in self._contact.keys():
-            if k == 'dateofbirth':
+            if k == 'dob':
                  self.assertEquals(
                     date(*strptime(self._contact[k], '%Y-%m-%d')[:3]),
-                    contact.dateofbirth
+                    contact.dob
                  )
             else:
                 self.assertEquals(unicode(self._contact[k]), getattr(contact, k))
@@ -105,9 +155,9 @@ class ModelFormTest(TestCase):
 
     def test_form_validation(self):
         bad_contact  = self._contact.copy()
-        bad_contact['name'] = ''
+        bad_contact['first_name'] = ''
         bad_contact['email'] = 'email'
-        bad_contact['dateofbirth'] = '1981'
+        bad_contact['dob'] = '1981'
 
         response = self.admin.post(reverse(EDIT_VIEW_NAME), bad_contact)
 
@@ -155,9 +205,9 @@ class AjaxFormTest(ModelFormTest):
         """
 
         bad_contact  = self._contact_ajaxForm.copy()
-        bad_contact['name'] = ''
+        bad_contact['first_name'] = ''
         bad_contact['email'] = 'email'
-        bad_contact['dateofbirth'] = '1981'
+        bad_contact['dob'] = '1981'
 
         response = self.admin.post(reverse(EDIT_VIEW_NAME),bad_contact)
 
@@ -211,16 +261,28 @@ class ReversedFieldsTest(ModelFormTest):
         html = response.content
 
         self.assertTrue('<!DOCTYPE HTML>' in html)
-        self.assertTrue(html.find('id_bio') < html.find('id_othercontacts') < html.find('id_skype'))
+        self.assertTrue(html.find('id_bio') < html.find('id_other_contacts') < html.find('id_skype'))
 
 
 
 class ListModelsCommandTest(TestCase):
     COMMAND = 'listmodels'
 
+    def test_instance_num(self):
+        '''
+        Calculate number of instances using models.get_models() and compare
+        '''
+        result = {}
+        for m in models.get_models():
+            model_name = '%s.%s' % (m.__module__, m.__name__)
+            result[model_name] = m._default_manager.count()
+
+        self.assertEquals(result, count_instances())
+
     def test_command_call(self):
         commands_dict = get_commands()
         self.assertTrue(self.COMMAND in commands_dict)
+
         has_errors = False
         try:
             call_command(self.COMMAND)
@@ -230,20 +292,25 @@ class ListModelsCommandTest(TestCase):
         self.assertEqual(has_errors, False)
 
 
+
+
+
 class SettingsContextProcessorTest(TestCase):
     def test_response(self):
         client = Client()
+
+        #check on /
         response = client.get(reverse(INDEX_VIEW_NAME))
-        self.assertEquals(response.context['settings'], settings)
+        self.assertEquals(response.context['SETTINGS'], settings)
 
+        #check on /requests
+        response = client.get(reverse('requests'))
+        self.assertEquals(response.context['SETTINGS'], settings)
 
-class SettingsDictContextProcessorTest(TestCase):
-    def test_response(self):
-        client = Client()
-        response = client.get(reverse('settings'))
-        self.assertEquals(type(response.context['settings_dict']) is dict, True)
-
-
+        #check on edit-page
+        client.login(username='admin', password='admin')
+        response = client.get(reverse(EDIT_VIEW_NAME))
+        self.assertEquals(response.context['SETTINGS'], settings)
 
 
 class AdminEditLinkTest(TestCase):

@@ -20,13 +20,14 @@
 
 {% block content %}
 <div id="left">
-<div class="field"><span>Name:</span> {{ contact.name }}</div>
-<div class="field"><span>Last name:</span> {{ contact.lastname }}</div>
-<div class="field"><span>Date of birth:</span> {{ contact.dateofbirth }}</div>
+<div class="field"><span>Name</span></div>
+<div class="field"><span>First Name:</span> {{ contact.first_name }}</div>
+<div class="field"><span>Last name:</span> {{ contact.last_name }}</div>
+<div class="field"><span>Date of birth:</span> {{ contact.dob|date:'Y-m-d' }}</div>
 <div class="field"><span>Photo:</span></div>
 
 {% if contact.photo %}
-<div id="photo-preview" style="background:url('{{ contact.photo.url }}')">
+<div id="photo-preview" style="background:url('{{ contact.photo.url }}') no-repeat">
 {% else %}
 <div id="photo-preview">
    <div id="photo-stub">No photo</div>
@@ -37,13 +38,13 @@
 </div>
 
 <div id="right">
-<div class="field"><span>Contacts:</span> {{ contact.contacts }}</div>
+<div class="field"><span>Contacts</span> </div>
 <div class="field"><span>Email:</span> {{ contact.email }}</div>
 <div class="field"><span>Jabber:</span> {{ contact.jabber }}</div>
 <div class="field"><span>Skype:</span> {{ contact.skype }}</div>
 
 <div id="textarea-wrapper">
-<div class="field"><span>Other contacts:</span> <div class="textarea">{{ contact.othercontacts|escape|linebreaks }}</div></div>
+<div class="field"><span>Other contacts:</span> <div class="textarea">{{ contact.other_contacts|escape|linebreaks }}</div></div>
 <div class="field"><span>Bio:</span> <div class="textarea">{{ contact.bio|escape|linebreaks }}</div></div>
 </div>
 
