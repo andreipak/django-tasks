@@ -1,21 +1,17 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as _logout
-
 from testassignment.person.models import Contact
 from testassignment.logger.models import HttpRequestLogEntry
 from forms import ContactUniForm as ContactForm
-
-from testassignment.person.context_processors import projectsettings, projectsettings_dict
-
+from django.conf import settings
 
 def index(request, template='index.html'):
     contact = get_object_or_404(Contact)
 
     return render_to_response(template, context_instance=RequestContext(
-                        request, {'contact':contact}, processors=[projectsettings]))
+                        request, {'contact':contact}))
 
 @login_required
 def edit(request, template_name='edit.html'):
@@ -50,13 +46,6 @@ def edit(request, template_name='edit.html'):
                 'form':form, 'contact':contact
             }, context_instance=RequestContext(request))
 
-
-def settings(request, template='settings.html'):
-
-    return render_to_response(template, context_instance=RequestContext(
-                                request, processors=[projectsettings_dict]))
-
-
 def logout(request):
     _logout(request)
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+    return redirect('index')

@@ -11,7 +11,6 @@ urlpatterns = patterns('',
     url(r'^edit/$', 'testassignment.person.views.edit', name='edit'),
 
     url(r'^requests/$', 'testassignment.logger.views.requests', name='requests'),
-    url(r'^settings/$', 'testassignment.person.views.settings', name='settings'),
 
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'},
         name='login'),
