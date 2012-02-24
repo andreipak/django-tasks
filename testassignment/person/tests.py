@@ -268,6 +268,19 @@ class ReversedFieldsTest(ModelFormTest):
 class ListModelsCommandTest(TestCase):
     COMMAND = 'listmodels'
 
+    class Output():
+        '''
+        Based on idea from
+        http://www.weakley.org.uk/blog/2009/feb/17/testing-django-commands/
+        '''
+        def __init__(self):
+            self.text = ''
+        def write(self, string):
+            self.text = self.text + string
+        def writelines(self,lines):
+            for line in lines:
+                self.write(line)
+
     def test_instance_num(self):
         '''
         Calculate number of instances using models.get_models() and compare
@@ -283,13 +296,34 @@ class ListModelsCommandTest(TestCase):
         commands_dict = get_commands()
         self.assertTrue(self.COMMAND in commands_dict)
 
+        saved_streams = sys.stdout, sys.stderr
+
+        sys.stdout = self.Output()
+        sys.stderr = self.Output()
+
+        prefix='stderr:'
         has_errors = False
+
         try:
-            call_command(self.COMMAND)
+            call_command(self.COMMAND, tee=1, prefix=prefix)
+
         except:
             has_errors = True
 
         self.assertEqual(has_errors, False)
+
+        valid_stdout = ''
+        valid_stderr = ''
+
+        for k, v in count_instances().items():
+            row = '%s\t%d' % (k, v)
+            valid_stdout += '%s\n' % row
+            valid_stderr += '%s %s\n' % (prefix, row)
+
+        self.assertEquals(sys.stdout.text, valid_stdout)
+        self.assertEquals(sys.stderr.text, valid_stderr)
+
+        sys.stdout, sys.stderr = saved_streams
 
 
 

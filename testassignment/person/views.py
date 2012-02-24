@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render_to_response, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as _logout
@@ -10,8 +10,7 @@ from django.conf import settings
 def index(request, template='index.html'):
     contact = get_object_or_404(Contact)
 
-    return render_to_response(template, context_instance=RequestContext(
-                        request, {'contact':contact}))
+    return render(request, template, {'contact': contact})
 
 @login_required
 def edit(request, template_name='edit.html'):
@@ -27,24 +26,18 @@ def edit(request, template_name='edit.html'):
                 #hack for rendering "photo-clear" input
                 form = ContactForm(instance=contact)
 
-            return render_to_response('contact_form.html', {
-                            'form':form, 'contact':contact
-                        }, context_instance=RequestContext(request))
+            return render(request, 'contact_form.html', {'form':form, 'contact':contact})
 
         if form.is_valid():
             form.save()
             return redirect('index')
 
-        return render_to_response(template_name, {
-                    'form':form, 'contact':contact
-                }, context_instance=RequestContext(request))
+        return render(request, template_name, {'form':form, 'contact':contact})
 
     #GET request
     form = ContactForm(instance=contact)
 
-    return render_to_response(template_name, {
-                'form':form, 'contact':contact
-            }, context_instance=RequestContext(request))
+    return render(request, template_name, {'form':form, 'contact':contact})
 
 def logout(request):
     _logout(request)
